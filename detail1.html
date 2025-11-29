@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail 1</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js"></script>
+</head>
+<body class="bg-home detail-page">
+  <div class="page">
+    <div class="detail-shell">
+      <div class="detail-grid"></div>
+      <header class="detail-header">
+        <a class="detail-back" href="mission.html">＜ 戻る</a>
+        <div class="detail-file-id">FILE.001</div>
+      </header>
+
+      <div class="detail-hero">
+        <img class="detail-photo" src="img/detail.png" alt="駅前の灯り">
+      </div>
+
+      <div class="detail-file-info">
+        <div><strong>最終記録:</strong> 不明</div>
+        <div><strong>消失まで:</strong> 186days</div>
+      </div>
+
+      <div class="detail-chip-row">
+        <span class="detail-chip">#駅前</span>
+        <span class="detail-chip">#霧</span>
+        <span class="detail-chip">#赤いランプ</span>
+      </div>
+
+      <div class="detail-text-block">
+        30年振りの熱海。学生時代に見た芸妓さんの姿が記憶に残っており、この場所へ。建物は昔の面影を残してあり、特徴的な松の木や提灯も健在でした。当時の記憶が蘇ります。
+      </div>
+
+      <div class="detail-cta">
+        <button class="primary-btn go-shot" data-detail-id="1">ココヘムカウ</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const mapinfoido_q = 35.681236;   // 目標地点の緯度
+    const mapinfokeido_q = 139.767125; // 目標地点の経度
+    const detailId = '1';
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.querySelector('.go-shot');
+      btn.addEventListener('click', () => {
+        App.rememberDetailId(detailId);
+        window.location.href = `shot.html?detailId=${detailId}`;
+      });
+    });
+  </script>
+</body>
+</html>

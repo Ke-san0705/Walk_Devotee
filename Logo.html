@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ロゴ</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js"></script>
+</head>
+<body class="bg-home">
+  <div class="logo-wrap">
+    <img src="img/Logo1clear.png" alt="ロゴ" class="logo-img">
+    <div class="logo-hint">タップでホームへ</div>
+  </div>
+  <script>
+    const goHome = () => window.location.href = 'home.html';
+    setTimeout(goHome, 4200);
+    document.body.addEventListener('click', goHome);
+  </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail 3</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js"></script>
+</head>
+<body class="bg-home detail-page">
+  <div class="page">
+    <div class="detail-shell">
+      <div class="detail-grid"></div>
+      <header class="detail-header">
+        <a class="detail-back" href="mission.html">＜ 戻る</a>
+        <div class="detail-file-id">FILE.003</div>
+      </header>
+
+      <div class="detail-hero">
+        <img class="detail-photo" src="img/detail.png" alt="古都の橋">
+      </div>
+
+      <div class="detail-file-info">
+        <div><strong>最終記録:</strong> 不明</div>
+        <div><strong>消失まで:</strong> 98days</div>
+      </div>
+
+      <div class="detail-chip-row">
+        <span class="detail-chip">#古都</span>
+        <span class="detail-chip">#霧</span>
+        <span class="detail-chip">#橋</span>
+      </div>
+
+      <div class="detail-text-block">
+        橋の向こうに低い霧。足音を忍ばせ、静かに待て。古い橋が軋む音を聞き逃さないで。渡りきれば、そこが合図地点だ。
+      </div>
+
+      <div class="detail-cta">
+        <button class="primary-btn go-shot" data-detail-id="3">ココヘムカウ</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const mapinfoido_q = 35.011564;   // 目標地点の緯度
+    const mapinfokeido_q = 135.768148; // 目標地点の経度
+    const detailId = '3';
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.querySelector('.go-shot');
+      btn.addEventListener('click', () => {
+        App.rememberDetailId(detailId);
+        window.location.href = `shot.html?detailId=${detailId}`;
+      });
+    });
+  </script>
+</body>
+</html>

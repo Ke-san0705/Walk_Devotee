@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Success</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js"></script>
+</head>
+<body class="bg-home">
+  <div class="page">
+    <header class="header">
+      <div class="progress">進行率 <strong id="progressValue">0%</strong></div>
+    </header>
+
+    <div class="success-wrap">
+      <div class="success-top">
+        <div class="success-title">MISSION CLEAR</div>
+        <div class="success-badge">SUCCESS</div>
+      </div>
+      <div class="success-body">
+        <p>セリフ：よくやった。足跡は確かに刻まれた。</p>
+        <p class="text-muted" style="margin-top:8px;">距離: <span id="distanceInfo">?</span> m</p>
+      </div>
+      <button class="primary-btn" id="logButton" style="margin-top:14px;">タビヲキロクスル</button>
+      <div class="success-stamp" id="successStamp" style="display:none;">ニンムセイコウ</div>
+      <div class="small-note">もう1度タップでホームへ戻ります。</div>
+    </div>
+  </div>
+
+  <script>
+    const detailId = App.readDetailId();
+    const logButton = document.getElementById('logButton');
+    const successStamp = document.getElementById('successStamp');
+    const params = new URLSearchParams(window.location.search);
+    const dist = params.get('dist') || localStorage.getItem('lastDistance') || '?';
+    const distanceEl = document.getElementById('distanceInfo');
+    if (distanceEl) distanceEl.textContent = dist;
+    let logged = false;
+
+    logButton.addEventListener('click', () => {
+      if (!logged) {
+        successStamp.style.display = 'block';
+        const progress = App.markSuccess(detailId);
+        const progressEls = [document.getElementById('progressValue'), document.getElementById('progressValueBody')];
+        progressEls.forEach(el => { if (el) el.textContent = `${progress}%`; });
+        logButton.textContent = 'ホームへ戻る';
+        logged = true;
+      } else {
+        window.location.href = 'home.html';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>チュートリアル</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js"></script>
+</head>
+<body class="tutorial-page">
+  <div class="tutorial-screen" id="tutorialScreen">
+    <div id="tutorialText" class="typewriter"></div>
+    <div id="tapMessage" class="tap-message">画面をタップして進む</div>
+    <div id="glitchOverlay" class="glitch-overlay"></div>
+  </div>
+  <script>
+    const tutorialCopy = 'これはチュートリアル。チュートリアルとは特定のスキルや知識を学ぶために作られた指導資料やガイドである';
+    const tutorialTextEl = document.getElementById('tutorialText');
+    const tapMessage = document.getElementById('tapMessage');
+    const glitchOverlay = document.getElementById('glitchOverlay');
+    const tutorialScreen = document.getElementById('tutorialScreen');
+    let typingDone = false;
+    let index = 0;
+
+    function typeNext() {
+      if (index <= tutorialCopy.length) {
+        tutorialTextEl.textContent = tutorialCopy.slice(0, index);
+        index += 1;
+        setTimeout(typeNext, 55 + Math.random() * 35);
+      } else {
+        typingDone = true;
+        tapMessage.classList.add('visible');
+      }
+    }
+
+    typeNext();
+
+    function proceed() {
+      if (!typingDone) return;
+      tapMessage.classList.remove('visible');
+      glitchOverlay.classList.add('active');
+      localStorage.setItem('tutorialCompleted', '1');
+      setTimeout(() => {
+        window.location.href = 'Logo.html';
+      }, 1000);
+    }
+
+    tutorialScreen.addEventListener('click', proceed);
+    tutorialScreen.addEventListener('touchstart', e => {
+      e.preventDefault();
+      proceed();
+    }, { passive: false });
+  </script>
+</body>
+</html>

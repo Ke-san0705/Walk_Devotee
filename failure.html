@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Failure</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js"></script>
+</head>
+<body class="bg-home">
+  <div class="page">
+    <header class="header">
+      <div class="progress">進行率 <strong id="progressValue">0%</strong></div>
+    </header>
+
+    <div class="failure-wrap">
+      <div class="failure-top">
+        <div class="failure-title">MISSION FAILED</div>
+        <div class="failure-badge">RETRY</div>
+      </div>
+      <div class="failure-body">
+        <p>セリフ：うーん、ちょっと違うかな。</p>
+        <p class="text-muted">距離: <span id="distanceInfo">?</span> m</p>
+      </div>
+      <button class="primary-btn" id="retryBtn" style="margin-top:14px;">モウイチド</button>
+    </div>
+  </div>
+
+  <script>
+    const detailId = App.readDetailId();
+    const params = new URLSearchParams(window.location.search);
+    const dist = params.get('dist') || localStorage.getItem('lastDistance') || '?';
+    document.getElementById('distanceInfo').textContent = dist;
+
+    document.getElementById('retryBtn').addEventListener('click', () => {
+      if (detailId) {
+        window.location.href = `detail${detailId}.html?detailId=${detailId}`;
+      } else {
+        window.history.back();
+      }
+    });
+  </script>
+</body>
+</html>
