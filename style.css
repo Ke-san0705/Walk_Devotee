@@ -186,6 +186,7 @@ img {
   border: 1px solid var(--line);
   color: #dfe5f5;
   box-shadow: var(--shadow);
+  white-space: pre-wrap;
 }
 
 .section-title {
@@ -603,6 +604,7 @@ img {
 .logo-wrap {
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
@@ -624,6 +626,15 @@ img {
   opacity: 0;
   animation: fadeInSlow 3.6s ease forwards;
   filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.35));
+  z-index: 1;
+}
+
+.logo-sub {
+  margin-top: 12px;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   z-index: 1;
 }
 
@@ -854,6 +865,11 @@ img {
 }
 
 .small-note { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+.success-message {
+  white-space: pre-wrap;
+  line-height: 1.8;
+}
 
 @media (min-width: 700px) {
   body { align-items: center; }

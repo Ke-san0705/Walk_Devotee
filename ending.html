@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ending</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js"></script>
+</head>
+<body class="bg-home">
+  <div class="page">
+    <header class="header">
+      <div class="progress">進行率 <strong id="progressValue">0%</strong></div>
+    </header>
+
+    <div class="success-wrap">
+      <div class="success-top">
+        <div class="success-title">ENDING</div>
+        <div class="success-badge">FINAL</div>
+      </div>
+      <div class="success-body">
+        <div id="endingMessage" class="success-message"></div>
+      </div>
+      <button class="primary-btn" id="nextButton" style="margin-top:14px;">タップで進む</button>
+      <div class="small-note">もう一度タップすると次のメッセージが表示されます。</div>
+    </div>
+  </div>
+
+  <script>
+    const messages = [
+      'こんにちは、僕の名前は沼岡です。\nなんで熱海が廃墟化したのか、知りたくない？',
+      '体験版はここまでです、遊んでいただきありがとうございました。'
+    ];
+    const messageEl = document.getElementById('endingMessage');
+    const nextButton = document.getElementById('nextButton');
+    let currentIndex = 0;
+    let typing = false;
+
+    function typeMessage(text, cb) {
+      typing = true;
+      messageEl.textContent = '';
+      let i = 0;
+      (function loop() {
+        if (i <= text.length) {
+          messageEl.textContent = text.slice(0, i);
+          i += 1;
+          setTimeout(loop, 30);
+        } else {
+          typing = false;
+          if (cb) cb();
+        }
+      })();
+    }
+
+    function showMessage(idx) {
+      if (typing) return;
+      currentIndex = idx;
+      typeMessage(messages[idx]);
+      if (idx >= messages.length - 1) {
+        nextButton.textContent = '終了';
+        nextButton.disabled = true;
+        nextButton.style.opacity = 0.7;
+      }
+    }
+
+    nextButton.addEventListener('click', () => {
+      if (typing) return;
+      const nextIdx = Math.min(currentIndex + 1, messages.length - 1);
+      if (nextIdx !== currentIndex) {
+        showMessage(nextIdx);
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      showMessage(0);
+    });
+  </script>
+</body>
+</html>

@@ -19,12 +19,12 @@
         <div class="success-badge">SUCCESS</div>
       </div>
       <div class="success-body">
-        <p>セリフ：よくやった。足跡は確かに刻まれた。</p>
+        <div id="successMessage" class="success-message"></div>
         <p class="text-muted" style="margin-top:8px;">距離: <span id="distanceInfo">?</span> m</p>
       </div>
-      <button class="primary-btn" id="logButton" style="margin-top:14px;">タビヲキロクスル</button>
+      <button class="primary-btn" id="logButton" style="margin-top:14px;">次へ</button>
       <div class="success-stamp" id="successStamp" style="display:none;">ニンムセイコウ</div>
-      <div class="small-note">もう1度タップでホームへ戻ります。</div>
+      <div class="small-note">次へを押して進んでください。</div>
     </div>
   </div>
 
@@ -36,19 +36,38 @@
     const dist = params.get('dist') || localStorage.getItem('lastDistance') || '?';
     const distanceEl = document.getElementById('distanceInfo');
     if (distanceEl) distanceEl.textContent = dist;
-    let logged = false;
+    // 進行率を強制的に 0% に表示・保存
+    const progressEls = [document.getElementById('progressValue'), document.getElementById('progressValueBody')];
+    progressEls.forEach(el => { if (el) el.textContent = '0%'; });
+    localStorage.setItem('progress', '0');
 
+    const successMessageText = `『わぁ…こんなに綺麗だったんですね』
+
+『2075年、熱海市では過疎化が進んで、かつての観光地は廃墟になり始めています。あなたの見ている景色が、この世界から消え始めています』
+
+「あなたの記憶が、消える前に」
+「どうか、この街の“今”を送ってください」`;
+    const successMessageEl = document.getElementById('successMessage');
+    let smIndex = 0;
+    function typeSuccess() {
+      if (!successMessageEl) return;
+      if (smIndex <= successMessageText.length) {
+        successMessageEl.textContent = successMessageText.slice(0, smIndex);
+        smIndex += 1;
+        setTimeout(typeSuccess, 28);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', typeSuccess);
+
+    let logged = false;
     logButton.addEventListener('click', () => {
       if (!logged) {
-        successStamp.style.display = 'block';
-        const progress = App.markSuccess(detailId);
-        const progressEls = [document.getElementById('progressValue'), document.getElementById('progressValueBody')];
-        progressEls.forEach(el => { if (el) el.textContent = `${progress}%`; });
-        logButton.textContent = 'ホームへ戻る';
+        // successStamp.style.display = 'block'; // スタンプ表示を無効化
+        // const progress = App.markSuccess(detailId); // 進行率更新を無効化
+        // progressEls.forEach(el => { if (el) el.textContent = `${progress}%`; });
         logged = true;
-      } else {
-        window.location.href = 'home.html';
       }
+      window.location.href = 'ending.html';
     });
   </script>
 </body>

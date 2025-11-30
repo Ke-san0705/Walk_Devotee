@@ -14,14 +14,34 @@
     </header>
 
     <div class="hero-top">
-      <img src="img/no_image.svg" alt="イメージ">
+      <img src="img/50ya.png" alt="イメージ">
     </div>
 
-    <div class="home-bottom-slab">
-      テキスト
-    </div>
+    <div class="home-bottom-slab typewriter" id="homeMessage"></div>
 
     <button class="primary-btn" onclick="window.location.href='mission.html'">もっと見る</button>
   </div>
+
+  <script>
+    const homeMessage = `はじめまして。突然のDMごめんなさい。
+今、2075年の熱海にいます。
+ここにはもう、誰もいません。あるのはコンクリートの残骸と、伸び放題の植物だけ。
+おばあちゃんの遺品から、古いデータを見つけました。
+『2025年、熱海はもっとも美しい色をしていた』
+お願いです。その時代の景色を、私に見せてくれませんか？
+2075年の人々が訪れた"廃墟の場所" に行って、"今の姿" を写真に撮って送ってほしいんです。`;
+
+    const homeMessageEl = document.getElementById('homeMessage');
+    let hmIndex = 0;
+    function typeHome() {
+      if (!homeMessageEl) return;
+      if (hmIndex <= homeMessage.length) {
+        homeMessageEl.textContent = homeMessage.slice(0, hmIndex);
+        hmIndex += 1;
+        setTimeout(typeHome, 35);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', typeHome);
+  </script>
 </body>
 </html>
